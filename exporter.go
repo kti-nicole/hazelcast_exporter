@@ -58,8 +58,6 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 	config.NetworkConfig().AddAddress(e.config.Url)
 
         if (e.config.ClusterName != "" ){
-		fmt.Println("Setting clustername")
-		fmt.Println(e.config.ClusterName)
 		config.GroupConfig().SetName(e.config.ClusterName)
 	}
 	if (e.config.ClusterPassword != "" ){
