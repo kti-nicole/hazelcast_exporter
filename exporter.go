@@ -56,8 +56,15 @@ func (e *Exporter) Describe(ch chan<- *prometheus.Desc) {
 func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 	config := hazelcast.NewConfig()
 	config.NetworkConfig().AddAddress(e.config.Url)
-	config.GroupConfig().SetName(e.config.ClusterName)
-	config.GroupConfig().SetPassword(e.config.ClusterPassword)
+
+        if (e.config.ClusterName != "" ){
+		fmt.Println("Setting clustername")
+		fmt.Println(e.config.ClusterName)
+		config.GroupConfig().SetName(e.config.ClusterName)
+	}
+	if (e.config.ClusterPassword != "" ){
+		config.GroupConfig().SetPassword(e.config.ClusterPassword)
+	}
 
 	client, err := hazelcast.NewClientWithConfig(config)
 	defer client.Shutdown()
