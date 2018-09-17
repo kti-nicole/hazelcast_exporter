@@ -57,7 +57,7 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 	config := hazelcast.NewConfig()
 	config.NetworkConfig().AddAddress(e.config.Url)
 
-        if (e.config.ClusterName != "" ){
+	if (e.config.ClusterName != "" ){
 		config.GroupConfig().SetName(e.config.ClusterName)
 	}
 	if (e.config.ClusterPassword != "" ){
