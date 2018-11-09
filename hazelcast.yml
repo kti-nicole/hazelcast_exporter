@@ -1,3 +1,4 @@
-hazelcastUrl: 127.0.0.1:571
+hazelcastUrl: 192.168.99.100:30571
 hazelcastMaps: 
-- something
+- usersAnonymized
+- activityCategories

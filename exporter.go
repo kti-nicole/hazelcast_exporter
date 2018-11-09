@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+        "net"
+	"strings"
 
 	hazelcast "github.com/hazelcast/hazelcast-go-client"
 	"github.com/prometheus/client_golang/prometheus"
@@ -55,7 +57,13 @@ func (e *Exporter) Describe(ch chan<- *prometheus.Desc) {
 
 func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 	config := hazelcast.NewConfig()
-	config.NetworkConfig().AddAddress(e.config.Url)
+	host_split := strings.Split(e.config.Url,":")
+	host, err := net.LookupHost(host_split[0])
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	config.NetworkConfig().AddAddress(host[0]+":"+host_split[1])
 
 	if (e.config.ClusterName != "" ){
 		config.GroupConfig().SetName(e.config.ClusterName)
