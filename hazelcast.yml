@@ -1,0 +1,3 @@
+hazelcastUrl: 127.0.0.1:571
+hazelcastMaps: 
+- something
